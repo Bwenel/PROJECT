@@ -1,0 +1,69 @@
+stages:
+# - Test
+ - builder
+ - run
+
+#Définir le job des test unitaires
+#Test_Unitaires:
+
+#Définition de l'ordre d'exécution du stage
+#  stage: Test
+
+#Définition du cache
+#  cache:
+#    paths:
+#    - vendor/
+
+#Séléction de l'image php (5.6)
+#  image: php:5.6
+
+#Pré-requis avant script
+#  before_script:
+#  - apt-get update -yqq
+#  - apt-get install git -yqq
+#  - curl -sS https://getcomposer.org/installer | php
+#  - php composer.phar install
+
+#Début
+#  script:
+#    - vendor/bin/phpunit --configuration phpunit.xml
+
+#Déclaration variable + tag
+variables:
+ IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+
+#Ordre d'exécution du stage
+BuildImage:
+ stage: builder
+
+#Positionnement sur le runner crée en shell
+ tags:
+   - BuildPush
+
+#Execution du script
+ script:
+ #Connexion Token
+   - docker login -u DOCKAPP_TOKEN -p $DOCKLOG $CI_REGISTRY
+
+#Création de notre image, attribution tag du commit, Image dans le répertoire courant
+   - docker build -t $IMAGE_TAG .
+
+#Push image dans registry
+   - docker push $IMAGE_TAG
+
+#Job DockerRun de notre image
+DockerRun:
+ stage: run
+
+#Affectation Runner
+ tags:
+  - BuildPush
+
+#Run image précédente
+#Le /usr/sbin/httpd permettra d'éviter de bloquer le job
+ script:
+  - docker run $IMAGE_TAG /usr/sbin/httpd
+
+#Restriction du lancement du job sur la branche nommée
+ only:
+  - Dev_Run
