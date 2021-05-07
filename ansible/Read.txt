@@ -1,1 +1,0 @@
-You will find here all of my ansible projects.
