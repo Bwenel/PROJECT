@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  app01:
+    build: ./app01
+    ports:
+      - "5000"
+  app02:
+    build: ./app02
+    ports:
+      - "5000"
+  app03:
+    build: ./app03
+    ports:
+      - "5000"
+  app04:
+    build: ./app04
+    ports:
+      - "5000"
+  app05:
+    build: ./app05
+    ports:
+      - "5000"
+  app06:
+    build: ./app06
+    ports:
+      - "5000"
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+        - ./nginx.conf:/etc/nginx/nginx.conf
+    environment:
+      - NGINX_PORT=80
