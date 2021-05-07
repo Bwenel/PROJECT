@@ -1,0 +1,9 @@
+Ping 172.17.0.4 
+
+OK
+
+Ping 172.17.0.5
+
+OK
+
+La connexion entre le controller Ansible et les deux containers ubuntu1804_web et ubuntu1804_db marche

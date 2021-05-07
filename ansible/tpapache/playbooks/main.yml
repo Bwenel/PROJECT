@@ -1,0 +1,13 @@
+---
+
+- hosts: webserver 
+  vars_files:
+    - vars/secret.yml 
+  remote_user: root
+  roles:
+    - { role: adduser }
+    - { role: apache }
+    - { role: check }
+    - { role: index } 
+
+

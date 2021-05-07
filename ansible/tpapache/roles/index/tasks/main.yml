@@ -1,0 +1,7 @@
+---
+
+- name: "index deploy"
+  template:   
+    src: index.html
+    dest: /var/www/html/index.html   
+  notify: restard apache

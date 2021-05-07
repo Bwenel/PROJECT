@@ -1,0 +1,17 @@
+---
+- hosts: webserver
+  remote_user: root
+  tasks:
+    - name: debug
+      debug:
+        msg: "bonjour ici l'environnement {{env}}"
+ 
+- hosts: webserver
+  vars_files:
+    - vars/{{env}}_vars.yml
+  remote_user: root
+  tasks:
+    - name: "ensure {{package}} is installed"
+      apt:
+        name: "{{ package }}"
+        state: present

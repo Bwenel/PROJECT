@@ -1,0 +1,11 @@
+---
+ 
+- name: "add apache users"
+  user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+  with_items:
+    - name: Apache
+      password: "{{ 'password1' | password_hash('sha512') }}"
+
+

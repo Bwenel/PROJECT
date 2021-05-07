@@ -1,0 +1,12 @@
+--- 
+- hosts: webserver
+  vars_files:
+    - vars/secret.yml
+  remote_user: root
+  tasks:
+    - name: "add user with vault secret"
+      user: 
+        name: johnd
+        comment: John Doe
+        uid: 1040
+        password: "{{ 'password' | password_hash('sha512') }}"

@@ -1,0 +1,5 @@
+--- 
+- name: ensure latest vim is installed
+  apt:
+    name: vim
+    state: latest

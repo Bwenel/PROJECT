@@ -1,0 +1,16 @@
+--- 
+- hosts: webserver
+  vars_files:
+    - vars/secret.yml
+  remote_user: root
+  tasks:
+    - name: "add multiples users with vault secret"
+      user: 
+        name: "{{ item.name }}"
+        password: "{{ item.password }}"
+      with_items:
+        - name: David1
+          password: "{{ 'password1' | password_hash('sha512')  }}"
+        - name: David2
+          password: "{{ 'password2' | password_hash('sha512')  }}"
+

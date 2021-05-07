@@ -1,0 +1,30 @@
+---
+
+- name: "Install php"
+  apt:
+    name: php
+    state: latest
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version == "18.04"
+  tags: php_install
+
+- name: "php start config"
+  service:
+    name: php-fpm
+    state: started
+    enabled: true
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version == "18.04"
+  tags: php_config
+
+- name: "check php version"
+  command: php -v
+  register: phpversion
+  tags: php_check
+
+- name: "show phpversion"
+  debug:
+    msg: "php version is: {{ phpversion }}"
+  tags: php_check_msg

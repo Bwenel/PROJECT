@@ -1,0 +1,9 @@
+---
+
+- name: "Install of mysql"
+  apt:
+    name: mysql-server
+    state: present
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version == "18.04"

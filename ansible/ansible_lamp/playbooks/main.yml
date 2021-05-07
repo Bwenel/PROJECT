@@ -1,0 +1,23 @@
+---
+
+- hosts: group1 
+  remote_user: richard 
+  vars_files: 
+    vars/vars
+  tasks:
+    - name: Creation d'un utilisateur, 
+      user: 
+        name: "{{ item }}" 
+        state: present 
+        password: "{{ "item" | password_hash('sha512') }}"
+      loop:
+        - name: richard 
+          pwd: "{{password }}"
+        - name: richardine
+          pwd: "{{ password }}
+
+  roles:
+    - { role : user }  #User parce que jai rien compris
+    - { role : vim }  #Vim best Editeur Ever
+    - { role : apache } # ROLE Apache bien t'as vue
+    - { role : display_variables } #ROLE qui affiche les ansibles facts
