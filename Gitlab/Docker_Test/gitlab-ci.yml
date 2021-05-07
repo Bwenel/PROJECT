@@ -1,0 +1,28 @@
+stages:
+ - Test
+
+#Définir le job des test unitaires
+Test_Unitaires:
+
+#Définition de l'ordre d'exécution du stage
+  stage: Test
+
+#Définition du cache
+  cache:
+    paths:
+    - vendor/
+
+#Séléction de l'image php (5.6)
+  image: php:5.6
+
+#Pré-requis avant script
+  before_script:
+  - apt-get update -yqq
+  - apt-get install git -yqq
+  - curl -sS https://getcomposer.org/installer | php
+  - php composer.phar install
+
+#Début
+  script:
+    - vendor/bin/phpunit --configuration phpunit.xml
+
