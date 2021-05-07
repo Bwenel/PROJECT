@@ -1,4 +1,4 @@
-Here are all of my ansibles projects.
+Here are all of my ansibles projects for my school training.
 
 1. tp_playbooks: How to set up a playbook
 2. tpvar: How to set up variables
